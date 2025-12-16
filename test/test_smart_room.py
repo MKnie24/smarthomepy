@@ -36,6 +36,7 @@ class TestSmartRoom(unittest.TestCase):
 
     @patch.object(GPIO, "input")
     def test_check_enough_light(self, photoresistor: Mock):
+        self.photoresistor = False
         photoresistor.return_value = True
         room = SmartRoom()
         outcome = room.check_enough_light()
@@ -43,6 +44,7 @@ class TestSmartRoom(unittest.TestCase):
 
     @patch.object(GPIO, "input")
     def test_not_check_enough_light(self, photoresistor: Mock):
+        self.photoresistor = True
         photoresistor.return_value = False
         room = SmartRoom()
         outcome = room.check_enough_light()
@@ -51,9 +53,9 @@ class TestSmartRoom(unittest.TestCase):
     @patch.object(GPIO, "input")
     @patch.object(GPIO, "input")
     @patch.object(GPIO, "output")
-    def test_light_management_person_inside_and_light_turns_on(self,lightbulb: Mock, photoresistor: Mock, infrared_sensor: Mock):
-        infrared_sensor.return_value = True
+    def test_light_management_person_inside_and_lightbulb_on(self,lightbulb: Mock, photoresistor: Mock, infrared_sensor: Mock):
         photoresistor.return_value = False
+        infrared_sensor.return_value = True
         room = SmartRoom()
         room.light_on = False
         room.manage_light_level()

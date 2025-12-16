@@ -75,7 +75,3 @@ class SmartRoom:
         if DEPLOYMENT:  # Sleep only if you are deploying on the actual hardware
             time.sleep(1)
         self.servo.ChangeDutyCycle(0)  # Set duty cycle equal to 0%
-
-
-class SmartRoomError(Exception):
-    pass
